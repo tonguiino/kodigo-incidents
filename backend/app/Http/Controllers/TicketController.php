@@ -55,7 +55,7 @@ class TicketController extends Controller
                 'message' => 'No se puede editar un ticket resuelto',
             ], 403);
         }
-        
+
         $validated = $request->validate([
             'status' => ['required', Rule::in(['Abierto', 'En progreso', 'Resuelto'])],
         ]);
@@ -68,9 +68,6 @@ class TicketController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Ticket $ticket)
     {
         if ($ticket->status !== 'Abierto') {
