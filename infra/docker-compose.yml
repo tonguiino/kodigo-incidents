@@ -1,0 +1,50 @@
+
+services:
+  #servicio para postgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: kodigo-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secretPass123
+      POSTGRES_DB: kodigo_incidents
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - kodigo-network
+
+  # 2. Backend (Laravel) - Descomentar cuando crees tu Dockerfile en /backend
+  # backend:
+  #   build:
+  #     context: ../backend
+  #     dockerfile: Dockerfile
+  #   container_name: kodigo-backend
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - kodigo-network
+
+  # 3. Frontend (React) - Descomentar cuando crees tu Dockerfile en /frontend
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: kodigo-frontend
+  #   ports:
+  #     - "5173:5173"
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - kodigo-network
+
+volumes:
+  postgres_data:
+
+networks:
+  kodigo-network:
+    driver: bridge
