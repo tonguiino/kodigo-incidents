@@ -33,7 +33,7 @@ export function ModalGenerate() {
         client: "",
         priority: "Medio",
         description: "",
-        user_id: "", 
+        user_id: "",
     })
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export function ModalGenerate() {
                 const response = await axios.get("http://localhost:8000/api/users")
                 const data = Array.isArray(response.data) ? response.data : []
                 setUsers(data)
-                
+
                 if (data.length > 0) {
                     setFormData((prev) => ({ ...prev, user_id: data[0].id }))
                 }
@@ -64,19 +64,20 @@ export function ModalGenerate() {
 
         try {
             await axios.post("http://localhost:8000/api/tickets", formData)
-            
+
             window.dispatchEvent(new Event('ticketCreated'))
-            
-            setFormData({ 
-                title: "", 
-                client: "", 
-                priority: "Medio", 
-                description: "", 
-                user_id: users.length > 0 ? users[0].id : "" 
+
+            setFormData({
+                title: "",
+                client: "",
+                priority: "Medio",
+                description: "",
+                user_id: users.length > 0 ? users[0].id : ""
             })
             setOpen(false)
-            
+
         } catch (error) {
+            console.error(error)
             alert("Hubo un error al crear el ticket. Revisa la consola.")
         } finally {
             setLoading(false)
@@ -90,7 +91,7 @@ export function ModalGenerate() {
                     + Nuevo Ticket
                 </Button>
             </AlertDialogTrigger>
-            
+
             <AlertDialogContent className="max-w-[550px] p-8 rounded-[1.25rem] border-0 shadow-2xl">
                 <form onSubmit={handleSubmit} className="relative text-left w-full">
                     <div className="flex items-center justify-between mb-4">
@@ -101,7 +102,7 @@ export function ModalGenerate() {
                             <X className="w-5 h-5" />
                         </AlertDialogCancel>
                     </div>
-                    
+
                     <AlertDialogDescription className="hidden">
                         Crea una nueva incidencia rellenando el formulario.
                     </AlertDialogDescription>
@@ -135,8 +136,8 @@ export function ModalGenerate() {
                             </Field>
                             <Field className="space-y-1.5 focus-within:text-brand">
                                 <FieldLabel className="text-sm font-semibold text-gray-700">Prioridad *</FieldLabel>
-                                <Select 
-                                    value={formData.priority} 
+                                <Select
+                                    value={formData.priority}
                                     onValueChange={(val) => setFormData(prev => ({ ...prev, priority: val }))}
                                 >
                                     <SelectTrigger className="w-full h-11 border-gray-200 focus:ring-1 focus:ring-brand rounded-lg shadow-sm">
@@ -156,8 +157,8 @@ export function ModalGenerate() {
 
                         <Field className="space-y-1.5 focus-within:text-brand">
                             <FieldLabel className="text-sm font-semibold text-gray-700">Agente Asignado</FieldLabel>
-                            <Select 
-                                value={formData.user_id ? formData.user_id.toString() : ""} 
+                            <Select
+                                value={formData.user_id ? formData.user_id.toString() : ""}
                                 onValueChange={(val) => setFormData(prev => ({ ...prev, user_id: parseInt(val) }))}
                             >
                                 <SelectTrigger className="w-full h-11 border-gray-200 focus:ring-1 focus:ring-brand rounded-lg shadow-sm">

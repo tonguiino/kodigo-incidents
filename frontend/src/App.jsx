@@ -6,7 +6,6 @@ import TicketTable from './components/ticketTable/TicketTable'
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
