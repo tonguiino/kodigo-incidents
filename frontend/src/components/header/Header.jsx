@@ -11,7 +11,7 @@ const Header = () => {
                 </div>
                 <div className="flex items-center gap-2">
                     <h1 className="text-2xl font-bold text-gray-900">Kódigo Fuente</h1>
-                    <span className="text-xl font-light text-brand">| Soporte POS</span>
+                    <span className="text-md font-light text-brand">| Soporte POS</span>
                 </div>
             </div>
             <div>
